@@ -1,7 +1,7 @@
 
 
 
-setwd("/Users/ackerman/UIUC/FDKai/FDK_Rscripts")
+setwd("/Users/Dir/")
 
 library(rrBLUP)
 library(asreml)
