@@ -43,7 +43,6 @@ diagVal <- mean(diag(gmatVal_h2))
 
 valGBS_h2 <- val_h2 %>% filter(name2 %in% row.names(genoVal_h2)) # Filter pheno file for lines with gbs data
 
-
 # Fit mixed model ---------------------------------------------------------
   # Fit model for training set
     # FDKV
