@@ -5,15 +5,13 @@
 
 setwd("/Users/Dir/")
 
-library(rrBLUP)
 library(asreml)
-library(tidyverse)
-library(magrittr)
 library(data.table)
-
+library(magrittr)
+library(rrBLUP)
+library(tidyverse)
 
 # Upload geno and pheno data ----------------------------------------------
-
 
 pheno <- read_tsv("FHBpheno_2020-21.tsv") %>% 
   mutate(across(c(1:15), factor))
@@ -29,23 +27,21 @@ train_h2 <- pheno %>%  filter(GS_trainingset == 1) %>%
 val_h2 <- pheno %>%  filter(GS_validset == 1) %>% 
   print(width = Inf) 
 
-
 # Create kinship matrix with gmat --------------------------------------------------------------------
 
-genoTrain_h2 <- geno[rownames(geno) %in% train_h2$name2, ]
+genoTrain_h2 <- geno[rownames(geno) %in% train_h2$name2, ] # Filter gbs file for phenotyped lines
 gmatTrain_h2 <- A.mat(genoTrain_h2)
 diag(gmatTrain_h2)<- diag(gmatTrain_h2)+0.00001
 diagTrain <- mean(diag(gmatTrain_h2))
 
-trainGBS_h2 <- train_h2 %>% filter(name2 %in% row.names(genoTrain_h2))
+trainGBS_h2 <- train_h2 %>% filter(name2 %in% row.names(genoTrain_h2)) # Filter pheno file for lines with gbs data
 
-genoVal_h2 <- geno[rownames(geno) %in% val_h2$name2, ]
+genoVal_h2 <- geno[rownames(geno) %in% val_h2$name2, ] # Filter gbs file for phenotyped lines
 gmatVal_h2 <- A.mat(genoVal_h2)
 diag(gmatVal_h2)<- diag(gmatVal_h2)+0.00001
 diagVal <- mean(diag(gmatVal_h2))
 
-
-valGBS_h2 <- val_h2 %>% filter(name2 %in% row.names(genoVal_h2))
+valGBS_h2 <- val_h2 %>% filter(name2 %in% row.names(genoVal_h2)) # Filter pheno file for lines with gbs data
 
 
 # Fit mixed model ---------------------------------------------------------
@@ -62,7 +58,6 @@ summary(amod_Train_FDKV_h2)$varcomp
 V1 <- summary(amod_Train_FDKV_h2)$varcomp[1,1]*diagTrain
 V2 <- summary(amod_Train_FDKV_h2)$varcomp[1,2]
 train_FDKV_h2 <- V1 / (V1+V2)
-
 
     # FDKL
 
