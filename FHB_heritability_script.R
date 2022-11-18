@@ -55,7 +55,7 @@ amod_Train_FDKV_h2 <- asreml(fixed = FDK_V ~ studyName:blockNumber,
 
 summary(amod_Train_FDKV_h2)$varcomp
 V1 <- summary(amod_Train_FDKV_h2)$varcomp[1,1]*diagTrain
-V2 <- summary(amod_Train_FDKV_h2)$varcomp[1,2]
+V2 <- summary(amod_Train_FDKV_h2)$varcomp[2,1]
 train_FDKV_h2 <- V1 / (V1+V2)
 
     # FDKL
@@ -68,7 +68,7 @@ amod_Train_FDKL_h2 <- asreml(fixed = FDK_L ~ studyName:blockNumber,
 
 summary(amod_Train_FDKL_h2)$varcomp
 V1 <- summary(amod_Train_FDKL_h2)$varcomp[1,1]*diagTrain
-V2 <- summary(amod_Train_FDKL_h2)$varcomp[1,2]
+V2 <- summary(amod_Train_FDKL_h2)$varcomp[2,1]
 train_FDKL_h2 <- V1 / (V1+V2)
 
     # DON
@@ -81,7 +81,7 @@ amod_Train_DON_h2 <- asreml(fixed = DON ~ studyName:blockNumber,
 
 summary(amod_Train_DON_h2)$varcomp
 V1 <- summary(amod_Train_DON_h2)$varcomp[1,1]*diagTrain
-V2 <- summary(amod_Train_DON_h2)$varcomp[1,2]
+V2 <- summary(amod_Train_DON_h2)$varcomp[2,1]
 train_DON_h2 <- V1 / (V1+V2)
 
 # Fit model for validation set
@@ -95,7 +95,7 @@ amod_Val_FDKV_h2 <- asreml(fixed = FDK_V ~ blockNumber,
 
 summary(amod_Val_FDKV_h2)$varcomp
 V1 <- summary(amod_Val_FDKV_h2)$varcomp[1,1]*diagVal
-V2 <- summary(amod_Val_FDKV_h2)$varcomp[1,2]
+V2 <- summary(amod_Val_FDKV_h2)$varcomp[2,1]
 val_FDKV_h2 <- V1 / (V1+V2)
 
     # FDKL-hat
@@ -108,7 +108,7 @@ amod_Val_FDKLhat_h2 <- asreml(fixed = FDK_Lhat ~ blockNumber,
 
 summary(amod_Val_FDKLhat_h2)$varcomp
 V1 <- summary(amod_Val_FDKLhat_h2)$varcomp[1,1]*diagVal
-V2 <- summary(amod_Val_FDKLhat_h2)$varcomp[1,2]
+V2 <- summary(amod_Val_FDKLhat_h2)$varcomp[2,1]
 val_FDKLhat_h2 <- V1 / (V1 + V2)
    
     # DON
